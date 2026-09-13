@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Mi Bautizo - Damaris Dariela</title>
 
   <!-- Google Fonts: Caligrafía fina, Serif clásica y moderna -->
@@ -18,12 +18,11 @@
 
   <!-- ELEMENTO DE AUDIO PARA TU MP3 -->
   <audio id="bgMusic" loop preload="auto">
-    <!-- Pon aquí tu archivo MP3 descargado -->
     <source src="Carlos Rivera - Qué Significa El Amor_.mp3" type="audio/mpeg">
   </audio>
 
   <!-- BOTÓN FLOTANTE PARA PAUSAR / REANUDAR MÚSICA -->
-  <button id="musicToggle" class="music-floating-btn" title="Control de música">
+  <button id="musicToggle" class="music-floating-btn" title="Control de música" aria-label="Control de música">
     <i class="fa-solid fa-music"></i>
     <span id="musicText">Música</span>
   </button>
@@ -35,7 +34,7 @@
     =============================================== -->
     <section id="envelopeCover" class="cover-wrapper">
       
-      <!-- Flores decorativas en las 4 esquinas de la portada -->
+      <!-- Flores decorativas en las esquinas de la portada -->
       <div class="corner-floral top-left">🌺</div>
       <div class="corner-floral bottom-right">🌺</div>
 
@@ -89,7 +88,7 @@
 
       <!-- Barra superior para volver al sobre -->
       <div class="top-nav">
-        <button id="btnFoldBack" class="btn-return">
+        <button id="btnFoldBack" class="btn-return" aria-label="Volver a guardar en el sobre">
           <i class="fa-solid fa-arrow-rotate-left"></i> Volver a guardar en el sobre
         </button>
       </div>
@@ -155,7 +154,7 @@
           </div>
         </div>
 
-<!-- ==============================================
+        <!-- ==============================================
              SECCIÓN: LUGARES (MISA Y RECEPCIÓN)
         =============================================== -->
         <div class="itinerary-area">
@@ -166,7 +165,7 @@
               <img 
                 src="img/iglesia.jpeg" 
                 alt="Ex Convento Dominico S. XVI y Parroquia de Santo Domingo de Guzmán" 
-                onerror="this.src='https://images.unsplash.com/photo-1548625361-16eb70c38865?q=80&w=600&auto=format&fit=crop'"
+                onerror="this.src='https://images.unsplash.com/photo-1548625361-16eb70c38865?q=80&w=600&auto=format&fit=crop'" 
               />
               <span class="wreath-ornament">💐</span>
             </div>
@@ -195,7 +194,7 @@
               <img 
                 src="img/salon.jpeg" 
                 alt="Salón Jardín De La Rosa" 
-                onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=600&auto=format&fit=crop'"
+                onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=600&auto=format&fit=crop'" 
               />
               <span class="wreath-ornament">💐</span>
             </div>
@@ -218,8 +217,6 @@
               </a>
             </div>
           </div>
-
-        </div>
 
         </div>
 
@@ -265,11 +262,11 @@
         </div>
 
         <!-- ==============================================
-             NUEVO: RECUADRO FINAL CON FOTO, FLORES Y PALOMA
+             RECUADRO FINAL CON FOTO, FLORES Y PALOMA
         =============================================== -->
         <div class="final-photo-showcase">
           
-          <!-- Paloma blanca con ramita de olivo en la parte superior del marco -->
+          <!-- Paloma blanca con resplandor en la parte superior del marco -->
           <div class="dove-crest">
             <span class="dove-icon">🕊️</span>
             <div class="dove-glow"></div>
@@ -283,7 +280,7 @@
             <span class="frame-flower fl-bottom-left">🌺</span>
             <span class="frame-flower fl-bottom-right">🌸</span>
 
-            <!-- Imagen final (puedes nombrar tu archivo 'foto_final.jpg' o 'bebe2.jpg') -->
+            <!-- Imagen final -->
             <img 
               src="img/final.jpeg" 
               alt="Recuerdo Damaris Dariela" 
@@ -291,9 +288,9 @@
               onerror="this.src='https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=800&auto=format&fit=crop'" 
             />
 
-            <!-- Pie de foto sutil -->
+            <!-- Pie de foto -->
             <div class="frame-caption">
-              <p class="caption-quote">"Deja que los niños vengan a mí"</p>
+              <p class="caption-quote">"Dejad que los niños vengan a mí"</p>
               <span class="caption-sign">Damaris Dariela</span>
             </div>
           </div>

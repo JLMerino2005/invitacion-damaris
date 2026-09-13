@@ -20,6 +20,13 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   min-height: 100vh;
   background: radial-gradient(circle at 50% 20%, #4a0f1b 0%, var(--bg-burgundy) 100%);
@@ -29,7 +36,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px 12px;
-  overflow-x: hidden;
 }
 
 /* Botón flotante para música */
@@ -120,7 +126,7 @@ body {
 
 .cover-script-title {
   font-family: var(--font-script);
-  font-size: 58px;
+  font-size: clamp(38px, 12vw, 58px);
   color: var(--gold-metallic);
   font-weight: normal;
   letter-spacing: 2px;
@@ -129,8 +135,8 @@ body {
 
 .cover-name {
   font-family: var(--font-serif);
-  font-size: 20px;
-  letter-spacing: 4px;
+  font-size: clamp(14px, 4.5vw, 20px);
+  letter-spacing: clamp(2px, 1vw, 4px);
   color: var(--gold-bright);
   margin-top: 6px;
   font-weight: 500;
@@ -147,7 +153,7 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.6);
   perspective: 1000px;
   cursor: pointer;
-  margin: 25px 0;
+  margin: 25px auto;
 }
 
 .flap {
@@ -208,6 +214,7 @@ body {
   z-index: 6;
   pointer-events: none;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Sello de lacre color vino oscuro con relieve */
@@ -304,8 +311,8 @@ body {
 }
 .cover-big-phrase {
   font-family: var(--font-serif);
-  font-size: 26px;
-  letter-spacing: 5px;
+  font-size: clamp(20px, 6vw, 26px);
+  letter-spacing: clamp(3px, 1vw, 5px);
   color: var(--gold-bright);
   font-weight: 700;
   margin-top: 2px;
@@ -359,7 +366,7 @@ body {
 
 .script-hero-title {
   font-family: var(--font-script);
-  font-size: 48px;
+  font-size: clamp(34px, 10vw, 48px);
   color: var(--gold-metallic);
 }
 
@@ -387,9 +394,10 @@ body {
 
 .baby-display-name {
   font-family: var(--font-script);
-  font-size: 46px;
+  font-size: clamp(34px, 9vw, 46px);
   color: var(--gold-bright);
   margin-top: 5px;
+  word-break: break-word;
 }
 
 /* Cita */
@@ -552,6 +560,9 @@ body {
   right: -4px;
   font-size: 20px;
 }
+.place-details {
+  flex: 1;
+}
 .place-details h4 {
   font-family: var(--font-serif);
   font-size: 16px;
@@ -580,10 +591,11 @@ body {
   font-weight: 700;
   padding: 6px 14px;
   border-radius: 20px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 .btn-map:hover {
   opacity: 0.9;
+  transform: translateY(-2px);
 }
 
 /* Firma */
@@ -592,8 +604,9 @@ body {
 }
 .signature-title {
   font-family: var(--font-script);
-  font-size: 42px;
+  font-size: clamp(34px, 9vw, 42px);
   color: var(--gold-metallic);
+  word-break: break-word;
 }
 .gold-leaf {
   color: var(--gold-metallic);
@@ -664,6 +677,10 @@ body {
   align-items: center;
   gap: 8px;
   margin-top: 10px;
+  transition: background-color 0.2s;
+}
+.btn-send-whatsapp:hover {
+  background: #20ba59;
 }
 .rsvp-hint {
   display: block;
@@ -673,22 +690,6 @@ body {
   margin-top: 6px;
 }
 
-/* Cierre */
-.final-farewell {
-  margin-top: 25px;
-}
-.farewell-text {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  letter-spacing: 2px;
-  color: var(--gold-bright);
-}
-.end-cross {
-  display: block;
-  font-size: 20px;
-  color: var(--gold-metallic);
-  margin-top: 6px;
-}
 /* ========================================================
    RECUADRO FINAL: FOTO, FLORES Y PALOMA BLANCA
 ======================================================== */
@@ -813,4 +814,148 @@ body {
   font-size: 26px;
   color: var(--gold-metallic);
   margin-top: 2px;
+}
+
+/* Cierre */
+.final-farewell {
+  margin-top: 25px;
+}
+.farewell-text {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold-bright);
+}
+.end-cross {
+  display: block;
+  font-size: 20px;
+  color: var(--gold-metallic);
+  margin-top: 6px;
+}
+
+/* ========================================================
+   MEDIA QUERIES: OPTIMIZACIÓN RESPONSIVA MULTI-DISPOSITIVOS
+======================================================== */
+
+/* Para celulares medianos y pequeños (<= 480px) */
+@media screen and (max-width: 480px) {
+  body {
+    padding: 14px 8px;
+  }
+
+  .cover-wrapper {
+    padding: 30px 14px;
+    min-height: auto;
+  }
+
+  .corner-floral {
+    font-size: 38px;
+  }
+
+  .invitation-card {
+    padding: 22px 14px;
+  }
+
+  /* Filas de lugares (Misa y Salón) apiladas verticalmente */
+  .place-row,
+  .place-row.reverse {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 16px 12px;
+    gap: 12px;
+  }
+
+  .place-image-wreath {
+    margin: 0 auto;
+  }
+
+  .btn-map {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 14px;
+  }
+
+  /* Botón de música flotante */
+  .music-floating-btn {
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .baby-frame {
+    width: 200px;
+    height: 200px;
+  }
+
+  .memory-image {
+    height: 230px;
+  }
+}
+
+/* Para celulares muy compactos / estrechos (<= 390px, ej. iPhone SE / Galaxy A) */
+@media screen and (max-width: 390px) {
+  /* Sobre 3D adaptado con solapas proporcionales */
+  .envelope-container {
+    max-width: 290px;
+    height: 190px;
+    margin: 20px auto;
+  }
+
+  .top-flap {
+    border-width: 100px 145px 0 145px;
+  }
+
+  .left-flap {
+    border-width: 95px 0 95px 145px;
+  }
+
+  .right-flap {
+    border-width: 95px 145px 95px 0;
+  }
+
+  .bottom-flap {
+    border-width: 0 145px 105px 145px;
+  }
+
+  .inner-invitation-slip {
+    height: 165px;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .envelope-cta-text {
+    top: 50px;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .wax-seal {
+    top: 66px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .seal-flower-engraving {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .envelope-container.open .inner-invitation-slip {
+    transform: translateY(-75px);
+  }
+
+  .cd-timer {
+    gap: 4px;
+  }
+
+  .cd-box {
+    min-width: 48px;
+  }
+
+  .cd-box span {
+    font-size: 20px;
+  }
 }
