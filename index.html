@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Bautizo - Damaris Dariela</title>
+
+  <!-- Google Fonts: Caligrafía fina, Serif clásica y moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ELEMENTO DE AUDIO PARA TU MP3 -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- Pon aquí tu archivo MP3 descargado -->
+    <source src="Carlos Rivera - Qué Significa El Amor_.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- BOTÓN FLOTANTE PARA PAUSAR / REANUDAR MÚSICA -->
+  <button id="musicToggle" class="music-floating-btn" title="Control de música">
+    <i class="fa-solid fa-music"></i>
+    <span id="musicText">Música</span>
+  </button>
+
+  <main class="main-viewport">
+
+    <!-- ==============================================
+         1. PORTADA CON EL SOBRE (DISEÑO EXACTO)
+    =============================================== -->
+    <section id="envelopeCover" class="cover-wrapper">
+      
+      <!-- Flores decorativas en las 4 esquinas de la portada -->
+      <div class="corner-floral top-left">🌺</div>
+      <div class="corner-floral bottom-right">🌺</div>
+
+      <!-- Título de portada -->
+      <header class="cover-header">
+        <h1 class="cover-script-title">Mi Bautizo</h1>
+        <h2 class="cover-name">DAMARIS DARIELA</h2>
+      </header>
+
+      <!-- SOBRE BLANCO CON TEXTURA Y SELLO DE CERA -->
+      <div class="envelope-container" id="envelopeCard">
+        
+        <!-- Solapa superior abatible -->
+        <div class="flap top-flap"></div>
+        <div class="flap left-flap"></div>
+        <div class="flap right-flap"></div>
+        <div class="flap bottom-flap"></div>
+
+        <!-- Tarjeta interior que se asoma -->
+        <div class="inner-invitation-slip">
+          <span class="slip-cross">✝</span>
+          <p class="slip-text">Damaris Dariela</p>
+          <p class="slip-date">10 . 10 . 2026</p>
+        </div>
+
+        <!-- Texto "CLIC PARA ABRIR" -->
+        <div class="envelope-cta-text">CLIC PARA ABRIR</div>
+
+        <!-- Sello de Cera Vino / Flor -->
+        <div class="wax-seal" id="waxSeal">
+          <div class="seal-flower-engraving">
+            <i class="fa-solid fa-fan"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Texto inferior de la portada -->
+      <footer class="cover-footer">
+        <p class="cover-subtitle">VEN Y ACOMPÁÑAME EN MI</p>
+        <p class="cover-big-phrase">GRAN DÍA</p>
+      </footer>
+
+    </section>
+
+
+    <!-- ==============================================
+         2. CONTENIDO INTERIOR QUE APARECE AL ABRIR
+    =============================================== -->
+    <section id="invitationContent" class="invitation-container hidden">
+
+      <!-- Barra superior para volver al sobre -->
+      <div class="top-nav">
+        <button id="btnFoldBack" class="btn-return">
+          <i class="fa-solid fa-arrow-rotate-left"></i> Volver a guardar en el sobre
+        </button>
+      </div>
+
+      <article class="invitation-card">
+        
+        <!-- FOTO DEL BEBÉ CON ORNAMENTOS FLORALES -->
+        <div class="hero-photo-area">
+          <h2 class="script-hero-title">Mi Bautizo</h2>
+          
+          <div class="baby-frame">
+            <span class="flower-badge top-l">🌸</span>
+            <img src="img/bebe.jpeg" alt="Damaris Dariela" class="baby-photo" onerror="this.src='https://images.unsplash.com/photo-1544126592-807ade215a0b?q=80&w=800&auto=format&fit=crop'" />
+            <span class="flower-badge bottom-r">🌸</span>
+          </div>
+
+          <h1 class="baby-display-name">Damaris Dariela</h1>
+        </div>
+
+        <!-- CITA BÍBLICA / SENTIMENTAL -->
+        <div class="quote-box">
+          <h3 class="quote-head">¡Mi corazón dice sí a Dios!</h3>
+          <p class="quote-paragraph">
+            "Hoy pongo tu pequeña mano en las manos de Dios, mi niña, para que Él cuide siempre cada paso de tu vida."
+          </p>
+          <div class="date-capsule">
+            <i class="fa-regular fa-calendar-check"></i> 10 de octubre del 2026
+          </div>
+        </div>
+
+        <!-- CUENTA REGRESIVA -->
+        <div class="countdown-widget">
+          <span class="cd-title">Inicia en:</span>
+          <div class="cd-timer">
+            <div class="cd-box"><span id="cdDays">00</span><small>DÍAS</small></div>
+            <span class="cd-colon">:</span>
+            <div class="cd-box"><span id="cdHours">00</span><small>HORAS</small></div>
+            <span class="cd-colon">:</span>
+            <div class="cd-box"><span id="cdMins">00</span><small>MINUTOS</small></div>
+            <span class="cd-colon">:</span>
+            <div class="cd-box"><span id="cdSecs">00</span><small>SEGUNDOS</small></div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN: ME ACOMPAÑA (PADRES Y PADRINOS) -->
+        <div class="companions-area">
+          <div class="area-banner">
+            <span class="banner-flower">🌸</span>
+            <h3>ME ACOMPAÑA</h3>
+            <span class="banner-flower">🌸</span>
+          </div>
+
+          <div class="family-card">
+            <i class="fa-solid fa-heart role-icon"></i>
+            <p class="family-label">MI MAMÁ</p>
+            <p class="family-name">Karla Itzel Mota Luna</p>
+          </div>
+
+          <div class="family-card">
+            <i class="fa-solid fa-dove role-icon"></i>
+            <p class="family-label">MI PADRINO</p>
+            <p class="family-name">Jose Luis Merino Mota</p>
+          </div>
+        </div>
+
+<!-- ==============================================
+             SECCIÓN: LUGARES (MISA Y RECEPCIÓN)
+        =============================================== -->
+        <div class="itinerary-area">
+          
+          <!-- MISA (Ex Convento Dominico) -->
+          <div class="place-row">
+            <div class="place-image-wreath">
+              <img 
+                src="img/iglesia.jpeg" 
+                alt="Ex Convento Dominico S. XVI y Parroquia de Santo Domingo de Guzmán" 
+                onerror="this.src='https://images.unsplash.com/photo-1548625361-16eb70c38865?q=80&w=600&auto=format&fit=crop'"
+              />
+              <span class="wreath-ornament">💐</span>
+            </div>
+            <div class="place-details">
+              <h4>MISA</h4>
+              <p class="place-hour"><i class="fa-regular fa-clock"></i> Hora: 12:00 PM</p>
+              <p class="place-address">
+                <strong>Ex Convento Dominico S. XVI y Parroquia de Santo Domingo de Guzmán</strong><br>
+                San Pedro, 74690 Tepexi de Rodríguez, Pue.
+              </p>
+              <!-- Coordenadas exactas de la Iglesia -->
+              <a 
+                href="https://www.google.com/maps?q=18.578052,-97.926367" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-map"
+              >
+                Haz Clic <i class="fa-solid fa-location-arrow"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- SALÓN JARDÍN (EVENTO) -->
+          <div class="place-row reverse">
+            <div class="place-image-wreath">
+              <img 
+                src="img/salon.jpeg" 
+                alt="Salón Jardín De La Rosa" 
+                onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=600&auto=format&fit=crop'"
+              />
+              <span class="wreath-ornament">💐</span>
+            </div>
+            <div class="place-details">
+              <h4>EVENTO</h4>
+              <p class="place-address">
+                Calle Galeana 310 (Número 6),<br>
+                Barrio San Sebastián,<br>
+                <strong>Salón Jardín "De La Rosa"</strong><br>
+                74690 Tepexi de Rodríguez, Pue.
+              </p>
+              <!-- Coordenadas exactas del Salón Jardín -->
+              <a 
+                href="https://www.google.com/maps?q=18.581873,-97.927415" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-map"
+              >
+                Haz Clic <i class="fa-solid fa-location-arrow"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        </div>
+
+        <!-- NOMBRE INTERMEDIO -->
+        <div class="flourish-signature">
+          <span class="gold-leaf">❦</span>
+          <h2 class="signature-title">Damaris Dariela</h2>
+          <span class="gold-leaf">❦</span>
+        </div>
+
+        <!-- FORMULARIO RSVP / WHATSAPP -->
+        <div class="rsvp-white-panel">
+          <h3 class="rsvp-title">¡Confirmación de Asistencia!</h3>
+          
+          <form id="rsvpForm">
+            <div class="form-group">
+              <label for="guestName">Nombre:</label>
+              <input type="text" id="guestName" placeholder="Nombre completo o familia" required>
+            </div>
+
+            <div class="form-group">
+              <label>¿Confirmas tu asistencia a Mi Bautizo?</label>
+              <label class="radio-option">
+                <input type="radio" name="attendance" value="Acepto con mucho gusto" checked>
+                <span>Acepto con mucho gusto</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="attendance" value="Lamentablemente no puedo asistir">
+                <span>Lamentablemente no puedo asistir</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="guestNotes">Mensaje o bendición:</label>
+              <input type="text" id="guestNotes" placeholder="(Opcional) Con mucho cariño...">
+            </div>
+
+            <button type="submit" class="btn-send-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i> Enviar
+            </button>
+            <small class="rsvp-hint">Se cargará el número de WhatsApp para enviar tu respuesta</small>
+          </form>
+        </div>
+
+        <!-- ==============================================
+             NUEVO: RECUADRO FINAL CON FOTO, FLORES Y PALOMA
+        =============================================== -->
+        <div class="final-photo-showcase">
+          
+          <!-- Paloma blanca con ramita de olivo en la parte superior del marco -->
+          <div class="dove-crest">
+            <span class="dove-icon">🕊️</span>
+            <div class="dove-glow"></div>
+          </div>
+
+          <!-- Marco decorativo -->
+          <div class="memory-frame">
+            <!-- Flores decorativas en las esquinas -->
+            <span class="frame-flower fl-top-left">🌸</span>
+            <span class="frame-flower fl-top-right">🌺</span>
+            <span class="frame-flower fl-bottom-left">🌺</span>
+            <span class="frame-flower fl-bottom-right">🌸</span>
+
+            <!-- Imagen final (puedes nombrar tu archivo 'foto_final.jpg' o 'bebe2.jpg') -->
+            <img 
+              src="img/final.jpeg" 
+              alt="Recuerdo Damaris Dariela" 
+              class="memory-image" 
+              onerror="this.src='https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=800&auto=format&fit=crop'" 
+            />
+
+            <!-- Pie de foto sutil -->
+            <div class="frame-caption">
+              <p class="caption-quote">"Deja que los niños vengan a mí"</p>
+              <span class="caption-sign">Damaris Dariela</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PIE FINAL -->
+        <footer class="final-farewell">
+          <p class="farewell-text">¡Gracias por acompañarme!</p>
+          <span class="end-cross">✝</span>
+        </footer>
+
+      </article>
+
+    </section>
+
+  </main>
+
+  <!-- Efecto Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

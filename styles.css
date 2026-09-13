@@ -1,0 +1,816 @@
+:root {
+  --bg-burgundy: #380a13;
+  --bg-burgundy-card: #2e0810;
+  --bg-burgundy-light: #521520;
+  --gold-metallic: #d4a762;
+  --gold-bright: #f3d49b;
+  --rose-seal: #7a1d28;
+  --envelope-white: #fdfdfd;
+  --envelope-shadow: #eae6df;
+  --text-cream: #fcefe2;
+  --text-muted: #d9bfb0;
+  --font-script: 'Alex Brush', cursive;
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 20%, #4a0f1b 0%, var(--bg-burgundy) 100%);
+  color: var(--text-cream);
+  font-family: var(--font-sans);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 12px;
+  overflow-x: hidden;
+}
+
+/* Botón flotante para música */
+.music-floating-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  background: rgba(46, 8, 16, 0.85);
+  border: 1px solid var(--gold-metallic);
+  color: var(--gold-bright);
+  padding: 8px 16px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 200;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+.music-floating-btn:hover {
+  background: var(--gold-metallic);
+  color: var(--bg-burgundy);
+}
+.music-floating-btn.playing i {
+  animation: pulseNotes 1.5s infinite;
+}
+@keyframes pulseNotes {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+.main-viewport {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+}
+
+/* ========================================================
+   1. PORTADA CON EL SOBRE BLANCO (ESTILO EXACTO A LA IMAGEN)
+======================================================== */
+.cover-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 590px;
+  background: radial-gradient(circle at 50% 30%, #460d18, #2a050d);
+  border: 1px solid rgba(212, 167, 98, 0.3);
+  border-radius: 14px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.cover-wrapper.fade-out {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.92);
+  pointer-events: none;
+  display: none;
+}
+
+.corner-floral {
+  position: absolute;
+  font-size: 48px;
+  pointer-events: none;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+.corner-floral.top-left {
+  top: 10px;
+  left: 10px;
+}
+.corner-floral.bottom-right {
+  bottom: 10px;
+  right: 10px;
+}
+
+.cover-header {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.cover-script-title {
+  font-family: var(--font-script);
+  font-size: 58px;
+  color: var(--gold-metallic);
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.cover-name {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: var(--gold-bright);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* El Sobre Blanco Realista */
+.envelope-container {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 230px;
+  background: #f7f5f0;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  perspective: 1000px;
+  cursor: pointer;
+  margin: 25px 0;
+}
+
+.flap {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Solapa superior */
+.top-flap {
+  top: 0;
+  left: 0;
+  border-width: 120px 180px 0 180px;
+  border-color: #ffffff transparent transparent transparent;
+  transform-origin: top center;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s 0.3s;
+  z-index: 5;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+}
+
+/* Solapas laterales */
+.left-flap {
+  top: 0;
+  left: 0;
+  border-width: 115px 0 115px 180px;
+  border-color: transparent transparent transparent #f0ece3;
+  z-index: 3;
+}
+
+.right-flap {
+  top: 0;
+  right: 0;
+  border-width: 115px 180px 115px 0;
+  border-color: transparent #e8e3d8 transparent transparent;
+  z-index: 3;
+}
+
+/* Solapa inferior */
+.bottom-flap {
+  bottom: 0;
+  left: 0;
+  border-width: 0 180px 125px 180px;
+  border-color: transparent transparent #dfd9cd transparent;
+  z-index: 4;
+}
+
+/* Texto impreso en el sobre: CLIC PARA ABRIR */
+.envelope-cta-text {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: #6a6156;
+  letter-spacing: 3px;
+  z-index: 6;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+/* Sello de lacre color vino oscuro con relieve */
+.wax-seal {
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78px;
+  height: 78px;
+  background: radial-gradient(circle at 35% 35%, #962837, #691722, #440c14);
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.4);
+  z-index: 7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, opacity 0.4s ease;
+}
+.wax-seal:hover {
+  transform: translateX(-50%) scale(1.08);
+}
+
+.seal-flower-engraving {
+  width: 58px;
+  height: 58px;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 26px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Tarjeta deslizante oculta en el sobre */
+.inner-invitation-slip {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  right: 15px;
+  height: 200px;
+  background: var(--bg-burgundy-card);
+  border: 1px solid var(--gold-metallic);
+  border-radius: 4px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--gold-bright);
+}
+.slip-cross {
+  font-size: 26px;
+  color: var(--gold-metallic);
+}
+.slip-text {
+  font-family: var(--font-script);
+  font-size: 28px;
+}
+.slip-date {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+/* Estado abierto */
+.envelope-container.open .top-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+.envelope-container.open .envelope-cta-text,
+.envelope-container.open .wax-seal {
+  opacity: 0;
+  pointer-events: none;
+}
+.envelope-container.open .inner-invitation-slip {
+  transform: translateY(-90px);
+}
+
+/* Textos inferiores de portada */
+.cover-footer {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.cover-subtitle {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--gold-metallic);
+}
+.cover-big-phrase {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  letter-spacing: 5px;
+  color: var(--gold-bright);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* ========================================================
+   2. CONTENIDO EXTENDIDO TRAS ABRIR EL SOBRE
+======================================================== */
+.invitation-container {
+  width: 100%;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.invitation-container.hidden {
+  display: none;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.top-nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.btn-return {
+  background: rgba(212, 167, 98, 0.15);
+  color: var(--gold-bright);
+  border: 1px solid var(--gold-metallic);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-return:hover {
+  background: var(--gold-metallic);
+  color: var(--bg-burgundy);
+}
+
+.invitation-card {
+  background: var(--bg-burgundy-card);
+  border: 1px solid rgba(212, 167, 98, 0.35);
+  border-radius: 16px;
+  padding: 30px 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.script-hero-title {
+  font-family: var(--font-script);
+  font-size: 48px;
+  color: var(--gold-metallic);
+}
+
+.baby-frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 15px auto;
+}
+.baby-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid var(--gold-metallic);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.flower-badge {
+  position: absolute;
+  font-size: 32px;
+  z-index: 2;
+}
+.flower-badge.top-l { top: -12px; left: -12px; }
+.flower-badge.bottom-r { bottom: -12px; right: -12px; }
+
+.baby-display-name {
+  font-family: var(--font-script);
+  font-size: 46px;
+  color: var(--gold-bright);
+  margin-top: 5px;
+}
+
+/* Cita */
+.quote-box {
+  margin: 25px 0;
+}
+.quote-head {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: var(--gold-metallic);
+  margin-bottom: 8px;
+}
+.quote-paragraph {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 380px;
+  margin: 0 auto 15px auto;
+}
+.date-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 167, 98, 0.12);
+  border: 1px solid var(--gold-metallic);
+  color: var(--gold-bright);
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 20px;
+}
+
+/* Contador */
+.countdown-widget {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(212, 167, 98, 0.25);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 25px;
+}
+.cd-title {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-metallic);
+  margin-bottom: 8px;
+}
+.cd-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.cd-box {
+  min-width: 55px;
+}
+.cd-box span {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+.cd-box small {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.cd-colon {
+  font-size: 20px;
+  color: var(--gold-metallic);
+  margin-bottom: 12px;
+}
+
+/* Padres / Padrinos */
+.companions-area {
+  margin-bottom: 25px;
+}
+.area-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.area-banner h3 {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  letter-spacing: 3px;
+  color: var(--gold-metallic);
+}
+.banner-flower { font-size: 18px; }
+
+.family-card {
+  background: rgba(212, 167, 98, 0.06);
+  border: 1px solid rgba(212, 167, 98, 0.15);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.role-icon {
+  font-size: 16px;
+  color: var(--gold-metallic);
+  margin-bottom: 4px;
+}
+.family-label {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gold-metallic);
+}
+.family-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-cream);
+  margin-top: 3px;
+}
+
+/* Lugares */
+.itinerary-area {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+.place-row {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(212, 167, 98, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+.place-row.reverse {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.place-image-wreath {
+  position: relative;
+  width: 95px;
+  height: 95px;
+  flex-shrink: 0;
+}
+.place-image-wreath img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--gold-metallic);
+}
+.wreath-ornament {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  font-size: 20px;
+}
+.place-details h4 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--gold-bright);
+}
+.place-hour {
+  font-size: 13px;
+  color: var(--gold-metallic);
+  margin: 4px 0 10px 0;
+}
+.place-address {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-metallic);
+  color: var(--bg-burgundy);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: opacity 0.2s;
+}
+.btn-map:hover {
+  opacity: 0.9;
+}
+
+/* Firma */
+.flourish-signature {
+  margin: 25px 0;
+}
+.signature-title {
+  font-family: var(--font-script);
+  font-size: 42px;
+  color: var(--gold-metallic);
+}
+.gold-leaf {
+  color: var(--gold-metallic);
+  font-size: 15px;
+}
+
+/* Panel blanco RSVP */
+.rsvp-white-panel {
+  background: #ffffff;
+  color: #33151b;
+  border-radius: 12px;
+  padding: 22px 16px;
+  text-align: left;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+.rsvp-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  text-align: center;
+  margin-bottom: 14px;
+  color: #4a0f1b;
+}
+.form-group {
+  margin-bottom: 12px;
+}
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #61333c;
+  margin-bottom: 5px;
+}
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d9c5c9;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+}
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #faf4f5;
+  border: 1px solid #ebd4d8;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.radio-option input {
+  accent-color: #7a1d28;
+}
+.btn-send-whatsapp {
+  width: 100%;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.rsvp-hint {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  color: #8c7377;
+  margin-top: 6px;
+}
+
+/* Cierre */
+.final-farewell {
+  margin-top: 25px;
+}
+.farewell-text {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold-bright);
+}
+.end-cross {
+  display: block;
+  font-size: 20px;
+  color: var(--gold-metallic);
+  margin-top: 6px;
+}
+/* ========================================================
+   RECUADRO FINAL: FOTO, FLORES Y PALOMA BLANCA
+======================================================== */
+.final-photo-showcase {
+  margin: 35px auto 20px auto;
+  max-width: 380px;
+  position: relative;
+  text-align: center;
+}
+
+/* Paloma Blanca con efecto de aureola / resplandor */
+.dove-crest {
+  position: relative;
+  display: inline-block;
+  margin-bottom: -18px;
+  z-index: 10;
+}
+
+.dove-icon {
+  display: inline-block;
+  font-size: 38px;
+  filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.45));
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+.dove-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-3deg);
+  }
+}
+
+/* Marco exterior con doble borde dorado */
+.memory-frame {
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, #3d0c16, #22050b);
+  border: 2px solid var(--gold-metallic);
+  outline: 1px solid rgba(243, 212, 155, 0.35);
+  outline-offset: 5px;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65);
+}
+
+/* Flores en las cuatro esquinas */
+.frame-flower {
+  position: absolute;
+  font-size: 26px;
+  z-index: 5;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+.fl-top-left {
+  top: -12px;
+  left: -10px;
+  transform: rotate(-15deg);
+}
+
+.fl-top-right {
+  top: -12px;
+  right: -10px;
+  transform: rotate(15deg);
+}
+
+.fl-bottom-left {
+  bottom: -10px;
+  left: -10px;
+  transform: rotate(-25deg);
+}
+
+.fl-bottom-right {
+  bottom: -10px;
+  right: -10px;
+  transform: rotate(25deg);
+}
+
+/* La Fotografía */
+.memory-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 167, 98, 0.4);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  display: block;
+}
+
+/* Pie de foto / frase */
+.frame-caption {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(212, 167, 98, 0.25);
+}
+
+.caption-quote {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.caption-sign {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 26px;
+  color: var(--gold-metallic);
+  margin-top: 2px;
+}
